@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter()
+@Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 //@RequiredArgsConstructor //outra forma de o lombok construir o construtor com atributos especificados
 @Entity		//depender da especificação
