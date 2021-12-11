@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -41,9 +42,15 @@ public class Category implements Serializable {
 	
 	private String nome;
 	
-	@Transient
+	@JsonIgnore //serve para não ficar em loop, ou seja, um atributo fica chamando o outro
 	@Setter(AccessLevel.NONE) //não cria o set deste atributo
+	/*
+	 * Explicado na entidade Produto, pois é uma relação muito para muitos e é necessário criar uma nova tabela
+	 * relacionameto as duas entidade, Category e Product.
+	 * */
+	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>();
+	
 	
 	public Category() {
 	}

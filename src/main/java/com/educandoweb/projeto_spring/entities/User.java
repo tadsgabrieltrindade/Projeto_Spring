@@ -50,7 +50,8 @@ public class User implements Serializable {
 	private String password;
 	
 	@Setter(AccessLevel.NONE) //não cria um setter para este atributo, somente o getter
-	@OneToMany(mappedBy = "client") //indica qual é o atributo que está mapeado na entidade Order
+	//indica qual é o atributo que está mapeado na entidade Order, pois é uma FK lá
+	@OneToMany(mappedBy = "client") 
 	@JsonIgnore //evita o loop 
 	private List<Order> orders = new ArrayList<>();
 	

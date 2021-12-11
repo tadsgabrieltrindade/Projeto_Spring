@@ -35,7 +35,7 @@ public class Order implements Serializable{
 	private Integer orderStatus;
 	
 	@ManyToOne //cardinalidade 
-	@JoinColumn(name = "client_id") //indica o nome da FK nesta tabela
+	@JoinColumn(name = "client_id") //indica o nome da FK nesta tabela, pq é muitos para um no relacionamento
 	private User client;
 	
 	
