@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 import com.educandoweb.projeto_spring.entities.Order;
 import com.educandoweb.projeto_spring.entities.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,13 +28,14 @@ import lombok.Setter;
 public class OrderItemPk implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore   //<== coloquei ele aqui, pq no getOrder do OrderItem não estava funcionando
 	@EqualsAndHashCode.Include
-	@ManyToOne
+	@ManyToOne		//muitos pedidos para um produto
 	@JoinColumn(name = "order_id")
 	private Order order;
 	
 	@EqualsAndHashCode.Include
-	@ManyToOne
+	@ManyToOne		//muitos produtos para um pedido
 	@JoinColumn(name = "product_id")
 	private Product product;
 }

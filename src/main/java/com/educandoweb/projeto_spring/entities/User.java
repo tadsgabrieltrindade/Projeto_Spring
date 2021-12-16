@@ -51,7 +51,7 @@ public class User implements Serializable {
 	
 	@Setter(AccessLevel.NONE) //não cria um setter para este atributo, somente o getter
 	//indica qual é o atributo que está mapeado na entidade Order, pois é uma FK lá
-	@OneToMany(mappedBy = "client") 
+	@OneToMany(mappedBy = "client")  //client é o nome do atributo lá na outra relação
 	@JsonIgnore //evita o loop 
 	private List<Order> orders = new ArrayList<>();
 	

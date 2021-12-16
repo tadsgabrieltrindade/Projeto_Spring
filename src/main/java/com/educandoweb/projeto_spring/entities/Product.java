@@ -61,8 +61,6 @@ public class Product implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "category_id") )  //indica o nome da PK da outra entidade, Category
 	private Set<Category> categories = new HashSet<>(); // começar vazia e o HashSet implementa o Set
 
-//	@ManyToMany
-//	private List<Order> orders;
 
 	public Product() {
 	}

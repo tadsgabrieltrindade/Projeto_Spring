@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.educandoweb.projeto_spring.entities.pk.OrderItemPk;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class OrderItem implements Serializable{
 
 	@EmbeddedId	//indica uma id que é composta
 	@EqualsAndHashCode.Include
-	private OrderItemPk id; // pk composta
+	private OrderItemPk id = new OrderItemPk(); // pk composta
 
 	private Integer quantity;
 	private Double price;
@@ -40,10 +41,13 @@ public class OrderItem implements Serializable{
 	}
 	
 	
+	
 	//Por mais que não tenhamos atributos Order e Product, temos no tipo do Id, pois é uma chave composta
+	@JsonIgnore //para não ficar em loop
 	public Order getOrder() {
 		return id.getOrder();
 	}
+	
 	
 	public void setOrder(Order order) {
 		id.setOrder(order);

@@ -2,6 +2,8 @@ package com.educandoweb.projeto_spring.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.educandoweb.projeto_spring.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.Setter;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
@@ -37,6 +42,10 @@ public class Order implements Serializable{
 	@ManyToOne //cardinalidade 
 	@JoinColumn(name = "client_id") //indica o nome da FK nesta tabela, pq é muitos para um no relacionamento
 	private User client;
+	
+	@Setter(AccessLevel.NONE)
+	@OneToMany(mappedBy = "id.order")
+	 private Set<OrderItem> items = new HashSet<>();
 	
 	
 	public Order() {
@@ -90,6 +99,10 @@ public class Order implements Serializable{
 
 	public void setClient(User client) {
 		this.client = client;
+	}
+	
+	public Set<OrderItem> getItems(){
+		return items;
 	}
 	
 }
