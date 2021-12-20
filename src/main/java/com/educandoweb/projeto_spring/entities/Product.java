@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -61,7 +62,22 @@ public class Product implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "category_id") )  //indica o nome da PK da outra entidade, Category
 	private Set<Category> categories = new HashSet<>(); // começar vazia e o HashSet implementa o Set
 
-
+	//modidicar/não criar os getters e setters deste atributo
+	@Getter(AccessLevel.NONE) 
+	@Setter(AccessLevel.NONE)
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> items = new HashSet<>();
+	
+	
+	@JsonIgnore
+	public Set<Order> getOrders(){
+		Set<Order> set = new HashSet<>();
+		for(OrderItem x : items) {
+			set.add(x.getOrder());
+		}
+		return set;
+	}
+	
 	public Product() {
 	}
 

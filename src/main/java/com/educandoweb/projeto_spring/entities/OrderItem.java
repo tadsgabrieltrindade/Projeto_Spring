@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import com.educandoweb.projeto_spring.entities.pk.OrderItemPk;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,11 +20,13 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrderItem implements Serializable{
+public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId	//indica uma id que é composta
+	@EmbeddedId // indica uma id que é composta
 	@EqualsAndHashCode.Include
+	@Getter(AccessLevel.NONE)
+	@Setter(AccessLevel.NONE)
 	private OrderItemPk id = new OrderItemPk(); // pk composta
 
 	private Integer quantity;
@@ -39,24 +42,23 @@ public class OrderItem implements Serializable{
 		this.quantity = quantity;
 		this.price = price;
 	}
-	
-	
-	
-	//Por mais que não tenhamos atributos Order e Product, temos no tipo do Id, pois é uma chave composta
-	@JsonIgnore //para não ficar em loop
+
+	// Por mais que não tenhamos atributos Order e Product, temos no tipo do Id,
+	// pois é uma chave composta
+	@JsonIgnore // para não ficar em loop
 	public Order getOrder() {
 		return id.getOrder();
 	}
-	
-	
+
 	public void setOrder(Order order) {
 		id.setOrder(order);
 	}
+
 	
 	public Product getProduct() {
 		return id.getProduct();
 	}
-	
+
 	public void setProduct(Product product) {
 		id.setProduct(product);
 	}

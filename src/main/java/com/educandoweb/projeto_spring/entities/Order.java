@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import com.educandoweb.projeto_spring.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -42,6 +43,7 @@ public class Order implements Serializable{
 	@ManyToOne //cardinalidade 
 	@JoinColumn(name = "client_id") //indica o nome da FK nesta tabela, pq é muitos para um no relacionamento
 	private User client;
+	
 	
 	@Setter(AccessLevel.NONE)
 	@OneToMany(mappedBy = "id.order")
