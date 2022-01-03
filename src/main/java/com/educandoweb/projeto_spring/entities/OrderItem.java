@@ -43,6 +43,10 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 
+	public Double getSubTotal() {
+		return price * quantity;
+	}
+
 	// Por mais que não tenhamos atributos Order e Product, temos no tipo do Id,
 	// pois é uma chave composta
 	@JsonIgnore // para não ficar em loop
@@ -54,7 +58,6 @@ public class OrderItem implements Serializable {
 		id.setOrder(order);
 	}
 
-	
 	public Product getProduct() {
 		return id.getProduct();
 	}
