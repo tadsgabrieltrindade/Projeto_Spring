@@ -31,4 +31,19 @@ public class UserService {
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	//o Id para atualizar e o user para os novos dados
+	public User update(Long id, User obj) {
+		//instancia o usuário sem ir ao bd. Prepara o objeto monitorado para a manipulação
+		User entity = repository.getOne(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+		
+	}
 }
