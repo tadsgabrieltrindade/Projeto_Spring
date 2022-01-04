@@ -41,20 +41,25 @@ public class UserService {
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException(id);  //qnd o recurso não é encontrado
 		} catch (DataIntegrityViolationException e) {
-			throw new DatabaseException(e.getMessage());
+			throw new DatabaseException(e.getMessage()); //qnd o recurso está dependendo de outro 
 
 		}
 	}
 
 	// o Id para atualizar e o user para os novos dados
 	public User update(Long id, User obj) {
-		// instancia o usuário sem ir ao bd. Prepara o objeto monitorado para a
-		// manipulação
-		User entity = repository.getOne(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			// instancia o usuário sem ir ao bd. Prepara o objeto monitorado para a
+			// manipulação
+			User entity = repository.getOne(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(User entity, User obj) {
